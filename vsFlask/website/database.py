@@ -3,7 +3,8 @@ from . import db
 import os
 
 current_path = os.path.dirname(__file__)
-static_path = os.path.join(current_path, "static")
+static_path = os.path.join(os.path.dirname(__file__), "..", "static")
+static_path = os.path.abspath(static_path)
 
 def save(title, content, nickname):
     new_post = Post(title=title, content=content, nickname=nickname)
@@ -33,6 +34,7 @@ def delete_post(index):
         db.session.delete(post)
         db.session.commit()
 
-    image_path = os.path.join(static_path, f"{index}.jpeg")
+    filename = f"{index}.jpeg"
+    image_path = os.path.join(static_path, filename)
     if os.path.exists(image_path):
         os.remove(image_path)

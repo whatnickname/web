@@ -11,7 +11,7 @@
     <nav>
         <div>
             {% if user.is_authenticated %}
-            <h2>{{ current_user.nickname }}</h2>님 반갑습니다
+            <h2>{{ current_user.nickname|safe }}</h2>님 반갑습니다
             <div><a href="/">Home</a></div>
             <div><a href="/logout">Logout</a></div>
             {% else %}
@@ -25,7 +25,7 @@
     {% if messages %}
     {% for category, message in messages %}
     <div>
-        {{ message }}
+        {{ message|safe }}
     </div>
     {% endfor %}
     {% endif %}

@@ -8,14 +8,12 @@ class Note(db.Model):
     data=db.Column(db.DateTime(timezone=True), default=func.now())
     user_id=db.Column(db.String(150), db.ForeignKey('user.id'))
 
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     nickname = db.Column(db.String(50), nullable=False)
-
-
+    image = db.Column(db.LargeBinary)
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,10 +24,8 @@ class Comment(db.Model):
 
     post = db.relationship('Post', backref=db.backref('comments', cascade='all, delete-orphan', lazy=True))
 
-
-
 class User(db.Model, UserMixin):
-    id= db.Column(db.String(150), primary_key=True)
+    id=db.Column(db.String(150), primary_key=True)
     email=db.Column(db.String(150), unique=True)
     nickname=db.Column(db.String(150), unique=True)
     password=db.Column(db.String(150))
